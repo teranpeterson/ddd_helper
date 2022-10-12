@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:ddd_helper/widgets/dice.dart';
 import 'package:ddd_helper/widgets/domino.dart';
+import 'package:ddd_helper/widgets/tutorial_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -24,6 +25,18 @@ class _DiceScreenState extends State<DiceScreen> {
   List<int> dice = [1, 2, 3, 4, 5];
   Set<Tuple2<int, int>> whiteDominos = {};
   Set<Tuple2<int, int>> blackDominos = {};
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      _showOverlay(context);
+    });
+  }
+
+  void _showOverlay(BuildContext context) {
+    Navigator.of(context).push(TutorialOverlay());
+  }
 
   _rollDice() {
     var random = Random();

@@ -50,9 +50,9 @@ class HomeScreen extends StatelessWidget {
   }
 
   Future<void> _launchUrl(String url) async {
-    final _url = Uri.parse(url);
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
+    final uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      throw 'Could not launch $uri';
     }
   }
 
