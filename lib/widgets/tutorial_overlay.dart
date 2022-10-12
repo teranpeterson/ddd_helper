@@ -36,19 +36,24 @@ class TutorialOverlay extends ModalRoute<void> {
   }
 
   Widget _buildOverlayContent(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          const Text(
-            'This is a nice overlay',
-            style: TextStyle(color: Colors.white, fontSize: 30.0),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Dismiss'),
-          )
-        ],
+    return GestureDetector(
+      onTap: () => Navigator.pop(context),
+      behavior: HitTestBehavior.opaque,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Image.asset(
+              "assets/images/tap.png",
+              color: Colors.white,
+              width: 200,
+            ),
+            const Text(
+              'Double tap to roll',
+              style: TextStyle(color: Colors.white, fontSize: 30.0),
+            ),
+          ],
+        ),
       ),
     );
   }
