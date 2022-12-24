@@ -1,10 +1,10 @@
 import 'dart:math';
 
+import 'package:ddd_helper/models/dice_data.dart';
 import 'package:ddd_helper/widgets/dice.dart';
 import 'package:ddd_helper/widgets/domino.dart';
 import 'package:ddd_helper/widgets/tutorial_overlay.dart';
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 
 class DiceScreen extends StatefulWidget {
   static const diceSpacing = 15.0;
@@ -23,8 +23,8 @@ class _DiceScreenState extends State<DiceScreen> {
   int dice5 = 5;
 
   List<int> dice = [1, 2, 3, 4, 5];
-  Set<Tuple2<int, int>> whiteDominos = {};
-  Set<Tuple2<int, int>> blackDominos = {};
+  Dominos whiteDominos = Dominos(dominos: {});
+  Dominos blackDominos = Dominos(dominos: {});
 
   @override
   void initState() {
@@ -49,25 +49,25 @@ class _DiceScreenState extends State<DiceScreen> {
       dice4 = random.nextInt(6) + 1;
       dice5 = random.nextInt(6) + 1;
 
-      whiteDominos.add(Tuple2(dice1 + dice2, dice3 + dice4));
-      whiteDominos.add(Tuple2(dice1 + dice3, dice2 + dice4));
-      whiteDominos.add(Tuple2(dice1 + dice4, dice2 + dice3));
+      whiteDominos.add(dice1 + dice2, dice3 + dice4);
+      whiteDominos.add(dice1 + dice3, dice2 + dice4);
+      whiteDominos.add(dice1 + dice4, dice2 + dice3);
 
-      blackDominos.add(Tuple2(dice5 + dice1, dice2 + dice3));
-      blackDominos.add(Tuple2(dice5 + dice1, dice2 + dice4));
-      blackDominos.add(Tuple2(dice5 + dice1, dice3 + dice4));
+      blackDominos.add(dice5 + dice1, dice2 + dice3);
+      blackDominos.add(dice5 + dice1, dice2 + dice4);
+      blackDominos.add(dice5 + dice1, dice3 + dice4);
 
-      blackDominos.add(Tuple2(dice5 + dice2, dice1 + dice3));
-      blackDominos.add(Tuple2(dice5 + dice2, dice1 + dice4));
-      blackDominos.add(Tuple2(dice5 + dice2, dice3 + dice4));
+      blackDominos.add(dice5 + dice2, dice1 + dice3);
+      blackDominos.add(dice5 + dice2, dice1 + dice4);
+      blackDominos.add(dice5 + dice2, dice3 + dice4);
 
-      blackDominos.add(Tuple2(dice5 + dice3, dice1 + dice2));
-      blackDominos.add(Tuple2(dice5 + dice3, dice1 + dice4));
-      blackDominos.add(Tuple2(dice5 + dice3, dice2 + dice4));
+      blackDominos.add(dice5 + dice3, dice1 + dice2);
+      blackDominos.add(dice5 + dice3, dice1 + dice4);
+      blackDominos.add(dice5 + dice3, dice2 + dice4);
 
-      blackDominos.add(Tuple2(dice5 + dice4, dice1 + dice2));
-      blackDominos.add(Tuple2(dice5 + dice4, dice1 + dice3));
-      blackDominos.add(Tuple2(dice5 + dice4, dice2 + dice3));
+      blackDominos.add(dice5 + dice4, dice1 + dice2);
+      blackDominos.add(dice5 + dice4, dice1 + dice3);
+      blackDominos.add(dice5 + dice4, dice2 + dice3);
     });
   }
 
@@ -87,6 +87,7 @@ class _DiceScreenState extends State<DiceScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ...whiteDominos
+                    .get()
                     .map((domino) => Domino(
                           invert: false,
                           top: domino.item1,
@@ -155,6 +156,7 @@ class _DiceScreenState extends State<DiceScreen> {
               alignment: WrapAlignment.center,
               children: [
                 ...blackDominos
+                    .get()
                     .map((domino) => Domino(
                           invert: true,
                           top: domino.item1,
